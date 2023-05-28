@@ -659,9 +659,13 @@ class GELU(Module):
 
     .. math:: \text{GELU}(x) = 0.5 * x * (1 + \text{Tanh}(\sqrt(2 / \pi) * (x + 0.044715 * x^3)))
 
+    When the approximate argument is 'sigmoid', Gelu is estimated with:
+
+    .. math:: \text{GELU}(x) = x * \sigma(1.702 * x)
+
     Args:
         approximate (str, optional): the gelu approximation algorithm to use:
-            ``'none'`` | ``'tanh'``. Default: ``'none'``
+            ``'none'`` | ``'tanh'`` | ``'sigmoid'``. Default: ``'none'``
 
     Shape:
         - Input: :math:`(*)`, where :math:`*` means any number of dimensions.

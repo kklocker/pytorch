@@ -1014,11 +1014,13 @@ def gelu(a: TensorLikeType, approximate: str = "none") -> TensorLikeType:
         a_cube = a * a * a
         inner = kBeta * (a + kKappa * a_cube)
         return 0.5 * a * (1 + torch.tanh(inner))
+    elif approximate == "sigmoid":
+        return a * torch.sigmoid(1.702 * a)
     elif approximate == "none":
         kAlpha = M_SQRT1_2
         return a * 0.5 * (1 + torch.erf(a * kAlpha))
     else:
-        raise RuntimeError("approximate argument must be either none or tanh.")
+        raise RuntimeError("approximate argument must be either 'none', 'tanh' or 'sigmoid'.")
 
 
 # CompositeImplicitAutograd - don't register decomp
